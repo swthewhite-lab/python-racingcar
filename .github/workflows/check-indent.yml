@@ -1,0 +1,21 @@
+name: Check Indentation Depth
+
+on: pull_request
+
+jobs:
+  check-indent:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install pylint
+        run: pip install pylint
+
+      - name: Create pylint config
+        run: |
+          echo "[FORMAT]" > .pylintrc
+          echo "max-nested-blocks=2" >> .pylintrc
+
+      - name: Run pylint
+        run: pylint --rcfile=.pylintrc src/
