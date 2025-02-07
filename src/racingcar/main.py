@@ -1,3 +1,5 @@
+""" 자동차 경주 게임 메인 스크립트 """
+
 import random
 
 def move_cars(car_positions):
@@ -9,8 +11,12 @@ def move_cars(car_positions):
 def print_race(car_positions):
     """현재 경주 상태 출력"""
     for name, pos in car_positions.items():
-        print(f"{name} : {'-' * pos if pos > 0 else ' '}")
+        if pos > 0:
+            print(f"{name} : {'-' * pos}")
+        else:
+            print(f"{name} : {' '}")
     print()
+
 
 def get_winners(car_positions):
     """최종 우승자 결정"""
@@ -20,7 +26,7 @@ def get_winners(car_positions):
 def main():
     """메인 함수"""
     car_names = input("경주할 자동차 이름을 입력하세요.(이름은 쉼표로 구분): ").split(",")
-    car_names = list(dict.fromkeys(name.strip() for name in car_names if name.strip()))  # 중복 제거 (순서 유지)
+    car_names = list(dict.fromkeys(name.strip() for name in car_names if name.strip()))
 
     for name in car_names:
         if len(name) > 5:
@@ -36,12 +42,13 @@ def main():
 
     car_positions = {name: 0 for name in car_names}  # 자동차 위치 초기화
 
-    for _ in range(N):  
+    for _ in range(N): 
         move_cars(car_positions)  # 자동차 이동
         print_race(car_positions)  # 현재 상태 출력
 
     winners = get_winners(car_positions)  # 우승자 결정
     print(f"\n최종 우승자 : {', '.join(winners)}")
+
 
 if __name__ == "__main__":
     main()
