@@ -1,15 +1,30 @@
+import random
+
+def move_cars(car_positions):
+    """자동차 이동 로직 (랜덤 숫자가 4 이상이면 이동)"""
+    for name in car_positions:
+        if random.randint(1, 9) >= 4:
+            car_positions[name] += 1
+
+def print_race(car_positions):
+    """현재 경주 상태 출력"""
+    for name, pos in car_positions.items():
+        print(f"{name} : {'-' * pos if pos > 0 else ' '}")
+    print()
+
+def get_winners(car_positions):
+    """최종 우승자 결정"""
+    max_pos = max(car_positions.values())
+    return [name for name, pos in car_positions.items() if pos == max_pos]
+
 def main():
-    import random
+    """메인 함수"""
     car_names = input("경주할 자동차 이름을 입력하세요.(이름은 쉼표로 구분): ").split(",")
-    car_names = list(set(name.strip() for name in car_names if name.strip()))
-    car_dict = {}
+    car_names = list(dict.fromkeys(name.strip() for name in car_names if name.strip()))  # 중복 제거 (순서 유지)
 
     for name in car_names:
-        name = name.strip()
         if len(name) > 5:
             raise ValueError("⚠ 자동차 이름은 5자 이하만 가능합니다!")
-
-        car_dict[name] = 0  
 
     try:
         N = int(input("시도할 횟수는 몇 회인가요? "))
@@ -19,23 +34,14 @@ def main():
         print("⚠ 잘못된 입력입니다. 숫자를 입력하세요.")
         return
 
-    carPos = {name: 0 for name in car_dict}
+    car_positions = {name: 0 for name in car_names}  # 자동차 위치 초기화
 
-    for _ in range(N):
-        for name in car_dict:
-            rand_num = random.randint(1, 9)  
-            if rand_num >= 4:  
-                carPos[name] += 1
+    for _ in range(N):  
+        move_cars(car_positions)  # 자동차 이동
+        print_race(car_positions)  # 현재 상태 출력
 
-        for name in carPos:
-            print(f"{name} : {'-' * carPos[name] if carPos[name] > 0 else ' '}")
-        print()  # 줄바꿈 추가
-
-    print()  # 최종 출력과 구분을 위해 개행 추가
-    maxPos = max(carPos.values())
-    winners = [name for name, pos in carPos.items() if pos == maxPos]
-
-    print(f"최종 우승자 : {', '.join(winners)}")
+    winners = get_winners(car_positions)  # 우승자 결정
+    print(f"\n최종 우승자 : {', '.join(winners)}")
 
 if __name__ == "__main__":
     main()
