@@ -4,9 +4,16 @@ def main():
 
     car_names = input("경주할 자동차 이름을 입력하세요.(이름은 쉼표로 구분)\n")
     cars = car_names.split(",")
+    for car in cars :
+        if (len(car) > 5) :
+            raise ValueError("이름이 5자를 초과합니다.")
+
     car_positions = {car : 0 for car in cars}
 
-    attempts = int(input("시도할 횟수는 몇 회인가요?\n"))
+    attempts = input("시도할 횟수는 몇 회인가요?\n")
+    if (not attempts.isdigit()) :
+        raise ValueError("시도 횟수는 숫자로 입력하세요.")
+    attempts = int(attempts)
 
     print("\n실행 결과")
     for i in range(attempts) :
