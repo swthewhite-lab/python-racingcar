@@ -34,8 +34,9 @@ def main():
 
     car_names = input("경주할 자동차 이름을 입력하세요."
                       "(이름은 쉼표로 구분): ").split(",")
-    car_names = list(dict.fromkeys(name.strip() for name in car_names
-                                    if name.strip()))  # 들여쓰기 수정
+    car_names = list(dict.fromkeys(
+        name.strip() for name in car_names if name.strip()
+    ))  # ✅ 올바른 들여쓰기 수정
 
     for name in car_names:
         if len(name) > 5:
