@@ -2,29 +2,36 @@
 
 import random
 
+
 def move_cars(car_positions):
     """자동차 이동 로직 (랜덤 숫자가 4 이상이면 이동)"""
+
     for name in car_positions:
         if random.randint(1, 9) >= 4:
             car_positions[name] += 1
 
+
 def print_race(car_positions):
     """현재 경주 상태 출력"""
+
     for name, pos in car_positions.items():
         if pos > 0:
             print(f"{name} : {'-' * pos}")
         else:
-            print(f"{name} : {' '}")
+            print(f"{name} : {' '}")  # Trailing whitespace 제거
     print()
 
 
 def get_winners(car_positions):
     """최종 우승자 결정"""
+
     max_pos = max(car_positions.values())
     return [name for name, pos in car_positions.items() if pos == max_pos]
 
+
 def main():
     """메인 함수"""
+
     car_names = input("경주할 자동차 이름을 입력하세요.(이름은 쉼표로 구분): ").split(",")
     car_names = list(dict.fromkeys(name.strip() for name in car_names if name.strip()))
 
@@ -48,7 +55,6 @@ def main():
 
     winners = get_winners(car_positions)  # 우승자 결정
     print(f"\n최종 우승자 : {', '.join(winners)}")
-
 
 if __name__ == "__main__":
     main()
