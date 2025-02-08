@@ -19,7 +19,7 @@ def test_전진_및_정지(capsys):
             main()  # 프로그램 실행
 
         # 출력값을 캡처한 후 검증
-        캡처된_출력 = capsys.readouterr()
+        캡처된_출력 = capsys.readouterr().out
         assert all(예상_출력 in 캡처된_출력 for 예상_출력 in ["pobi : -", "woni : ", "최종 우승자 : pobi"])
 
 
