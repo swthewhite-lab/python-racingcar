@@ -42,12 +42,15 @@ def movement(cars, car_positions):
 
 def get_winner(cars, car_positions):
     """
-    경주에서 우승한 자동차를 구하는 함수입니다.
+    경주에서 우승한 자동차를 구하는 함수
     """
     max_value = max(car_positions.values())
     return [car for car in cars if car_positions[car] == max_value]
 
 def print_winner(cars, car_positions):
+    """
+    최종 우승자를 출력하는 함수
+    """
     winner = get_winner(cars, car_positions)
     print(f"최종 우승자 : {', '.join(winner)}")
 
