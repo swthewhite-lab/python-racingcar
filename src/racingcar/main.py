@@ -14,7 +14,7 @@ def main():
 
     car_names = input("경주할 자동차 이름을 입력하세요.(이름은 쉼표로 구분)\n")
     cars = car_names.split(",")
-    if not all(cars):
+    if not all(car.strip() for car in cars):
         raise ValueError("자동차 이름은 빈 문자열이 될 수 없습니다.")
     if len(cars) != len(set(cars)):
         raise ValueError("중복된 이름은 허용되지 않습니다.")
@@ -42,7 +42,7 @@ def main():
 
 def movement(cars, car_positions):
     """
-    각 자동차가 0에서 9 사이의 랜덤 숫자를 생성하여, 
+    각 자동차가 0에서 9 사이의 랜덤 숫자를 생성하여,
     4 이상의 숫자가 나오면 해당 자동차의 위치를 1 증가시키는 함수
     """
     for car in cars:
@@ -56,7 +56,6 @@ def get_winner(cars, car_positions):
     """
     max_value = max(car_positions.values())
     return [car for car in cars if car_positions[car] == max_value]
-
 
 
 def print_winner(cars, car_positions):
