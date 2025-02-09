@@ -47,6 +47,7 @@ def test_시도에_대한_예외():
         with patch('builtins.input', side_effect=["pobi,javaji", "0"]):
             main()  # 프로그램 실행
 
+
 # 이름의 중복에 대한 예외 처리 테스트
 def test_중복에_대한_예외():
     """
@@ -55,5 +56,29 @@ def test_중복에_대한_예외():
     """
     with pytest.raises(ValueError):
         # 자동차 이름이 잘못된 경우에 대한 입력을 모의 처리
-        with patch('builtins.input', side_effect=["pobi,javaji,pobi", "1"]):
+        with patch('builtins.input', side_effect=["pobi,won,pobi", "1"]):
+            main()  # 프로그램 실행
+
+
+# 빈 이름에 대한 예외 처리 테스트
+def test_빈_문자열에_대한_예외():
+    """
+    빈 문자열에 대한 예외 처리를 테스트합니다.
+    'pytest.raises'를 사용해 IllegalArgumentException과 유사한 ValueError를 발생시키는지 검증합니다.
+    """
+    with pytest.raises(ValueError):
+        # 자동차 이름이 잘못된 경우에 대한 입력을 모의 처리
+        with patch('builtins.input', side_effect=["pobi,won, ", "1"]):
+            main()  # 프로그램 실행
+
+
+# 시도 횟수에 문자열 입력에 대한 예외 처리 테스트
+def test_시도_횟수에_문자열_입력에_대한_예외():
+    """
+    시도 횟수에 문자열 입력에 대한 예외 처리를 테스트합니다.
+    'pytest.raises'를 사용해 IllegalArgumentException과 유사한 ValueError를 발생시키는지 검증합니다.
+    """
+    with pytest.raises(ValueError):
+        # 시도 횟수에 문자열이 입력된 경우에 대한 입력을 모의 처리
+        with patch('builtins.input', side_effect=["pobi, ,won", "abc"]):
             main()  # 프로그램 실행
