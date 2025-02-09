@@ -34,5 +34,26 @@ def test_이름에_대한_예외():
         with patch('builtins.input', side_effect=["pobi,javaji", "1"]):
             main()  # 프로그램 실행
 
-
 # 추가적인 시나리오에 대한 테스트를 필요에 따라 작성할 수 있습니다.
+
+# 이름에 대한 예외 처리 테스트
+def test_시도에_대한_예외():
+    """
+    시도 횟수에 대한 예외 처리를 테스트합니다.
+    'pytest.raises'를 사용해 IllegalArgumentException과 유사한 ValueError를 발생시키는지 검증합니다.
+    """
+    with pytest.raises(ValueError):
+        # 자동차 이름이 잘못된 경우에 대한 입력을 모의 처리
+        with patch('builtins.input', side_effect=["pobi,javaji", "0"]):
+            main()  # 프로그램 실행
+
+# 이름의 중복에 대한 예외 처리 테스트
+def test_중복에_대한_예외():
+    """
+    이름 중복에 대한 예외 처리를 테스트합니다.
+    'pytest.raises'를 사용해 IllegalArgumentException과 유사한 ValueError를 발생시키는지 검증합니다.
+    """
+    with pytest.raises(ValueError):
+        # 자동차 이름이 잘못된 경우에 대한 입력을 모의 처리
+        with patch('builtins.input', side_effect=["pobi,javaji,pobi", "1"]):
+            main()  # 프로그램 실행
