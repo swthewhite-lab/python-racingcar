@@ -11,21 +11,32 @@ def carfoward():
     else :
         return ""
 
+def status(Cars):
+    for key,value in Cars.items():
+        print(key,value)
+
 def main():
     car_name=input("경주할 자동차 이름을 입력하세요.(이름은 쉼표로 구분)").split(',')
     check_carname(car_name)
     
     Cars=dict.fromkeys(car_name,"")
     
-    #trycount=int(input())
+    trycount=int(input("시도할 횟수는 몇 회인가요?"))
+    if trycount ==0:
+        raise ValueError
     
-    for i in car_name:
-        Cars[i]+=carfoward()
+    count=0
+    while count<trycount:
+        for i in car_name:
+            Cars[i]+=carfoward()
+        status(Cars)
+        print("")
+        count+=1
+    
 
-    for i in car_name:
-        Cars[i]+=carfoward()
 
-    print(Cars)
+
+
 
 
 
