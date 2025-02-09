@@ -1,10 +1,18 @@
 import random
+
+
 def check_carname(x):
-        for i in x :
-            if len(i)>5:
-                raise ValueError
+    '''
+    이름 검증 절차
+    '''
+    for i in x :
+        if len(i)>5:
+            raise ValueError("자동차 이름은 5자를 초과할 수 없습니다.")
 
 def carfoward():
+    """
+    자동차 전진시키는 함수수
+    """
     a=random.randint(0,9)
     if a>=4 :
         return 1
@@ -12,15 +20,20 @@ def carfoward():
         return 0
 
 def status(Cars):
+    """
+    진행상태를 나타내는 함수
+    """
     for key,value in Cars.items():
         print(f"{key} : {value*'-'}")
 
 
 
 def winner(Cars):
+    """
+    최종 우승자를 나타내는 함수
+    """
     maxfoward=max(Cars.values())
     winners=[key for key,value in Cars.items() if value==maxfoward]
-    
     print(f"\n최종 우승자 : {', '.join(winners)}")
 
 def main():
@@ -31,7 +44,7 @@ def main():
     
     trycount=int(input("시도할 횟수는 몇 회인가요?"))
     if trycount ==0:
-        raise ValueError
+        ValueError("시도할 횟수는 0일 수 없습니다")
     
     count=0
     while count<trycount:
