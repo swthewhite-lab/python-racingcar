@@ -1,9 +1,16 @@
 def main():
-
-    Cars=[]
+    def check_carname(x):
+        for i in x :
+            if len(i)>5:
+                raise ValueError
     
-    racing_carInput=input().split()
-    print(racing_carInput)
+    
+    car_name=input("경주할 자동차 이름을 입력하세요.(이름은 쉼표로 구분)").split(',')
+    check_carname(car_name)
+    
+    Cars=dict.fromkeys(car_name,"")
+
+    print(Cars)
 
 
     
