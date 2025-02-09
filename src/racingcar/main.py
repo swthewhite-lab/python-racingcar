@@ -1,8 +1,10 @@
 import random
 
-'''
+"""
 자동차 경주 프로그램
-'''
+이 모듈은 간단한 자동차 경주 게임을 구현합니다. 사용자로부터 자동차 이름을 입력받고, 
+정해진 횟수만큼 자동차가 전진하는 시뮬레이션을 진행하여 최종 우승자를 출력합니다.
+"""
 
 def check_carname(x):
     '''
@@ -12,6 +14,7 @@ def check_carname(x):
     for i in x:
         if len(i) > 5:
             raise ValueError("자동차 이름은 5자를 초과할 수 없습니다.")
+
 
 def carfoward():
     """
@@ -23,6 +26,7 @@ def carfoward():
         return 1
     return 0
 
+
 def status(cars):
     """
     각 자동차의 진행 상태를 출력하는 함수.
@@ -30,6 +34,7 @@ def status(cars):
     """
     for key, value in cars.items():
         print(f"{key} : {value * '-'}")
+
 
 def winner(cars):
     """
@@ -40,7 +45,12 @@ def winner(cars):
     winners = [key for key, value in cars.items() if value == maxfoward]
     print(f"\n최종 우승자 : {', '.join(winners)}")
 
+
 def main():
+    """
+    프로그램의 메인 함수.
+    자동차 이름과 시도할 횟수를 입력받고, 경주를 진행한 후 우승자를 출력한다.
+    """
     car_name = input("경주할 자동차 이름을 입력하세요.(이름은 쉼표로 구분)").split(',')
     check_carname(car_name)
     
