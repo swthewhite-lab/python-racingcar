@@ -5,64 +5,58 @@ def check_carname(x):
     '''
     이름 검증 절차
     '''
-    for i in x :
-        if len(i)>5:
+    for i in x:
+        if len(i) > 5:
             raise ValueError("자동차 이름은 5자를 초과할 수 없습니다.")
+
 
 def carfoward():
     """
-    자동차 전진시키는 함수수
+    자동차 전진시키는 함수
     """
-    a=random.randint(0,9)
-    if a>=4 :
+    a = random.randint(0, 9)
+    if a >= 4:
         return 1
-    else :
+    else:
         return 0
 
-def status(Cars):
+
+def status(cars):
     """
     진행상태를 나타내는 함수
     """
-    for key,value in Cars.items():
-        print(f"{key} : {value*'-'}")
+    for key, value in cars.items():
+        print(f"{key} : {value * '-'}")
 
 
-
-def winner(Cars):
+def winner(cars):
     """
     최종 우승자를 나타내는 함수
     """
-    maxfoward=max(Cars.values())
-    winners=[key for key,value in Cars.items() if value==maxfoward]
+    maxfoward = max(cars.values())
+    winners = [key for key, value in cars.items() if value == maxfoward]
     print(f"\n최종 우승자 : {', '.join(winners)}")
 
+
 def main():
-    car_name=input("경주할 자동차 이름을 입력하세요.(이름은 쉼표로 구분)").split(',')
+    car_name = input("경주할 자동차 이름을 입력하세요.(이름은 쉼표로 구분)").split(',')
     check_carname(car_name)
     
-    Cars=dict.fromkeys(car_name,0)
+    cars = dict.fromkeys(car_name, 0)
     
-    trycount=int(input("시도할 횟수는 몇 회인가요?"))
-    if trycount ==0:
-        ValueError("시도할 횟수는 0일 수 없습니다")
+    trycount = int(input("시도할 횟수는 몇 회인가요?"))
+    if trycount == 0:
+        raise ValueError("시도할 횟수는 0일 수 없습니다")
     
-    count=0
-    while count<trycount:
+    count = 0
+    while count < trycount:
         for i in car_name:
-            Cars[i]+=carfoward()
-        status(Cars)
+            cars[i] += carfoward()
+        status(cars)
         print("")
-        count+=1
+        count += 1
     
-
-    winner(Cars)
-
-
-
-
-
-    
-    
+    winner(cars)
 
 
 if __name__ == "__main__":
