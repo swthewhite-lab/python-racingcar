@@ -1,3 +1,5 @@
+""" 자동차 경주 게임 """
+
 import random
 
 
@@ -11,34 +13,43 @@ def main():
 
     car_names = input("경주할 자동차 이름을 입력하세요.(이름은 쉼표로 구분)\n")
     cars = car_names.split(",")
+    if not all(cars):
+        raise ValueError("자동차 이름은 빈 문자열이 될 수 없습니다.")
+    if len(cars) != len(set(cars)):
+        raise ValueError("중복된 이름은 허용되지 않습니다.")
     for car in cars:
-        if len(car) > 5 :
+        if len(car) > 5:
             raise ValueError("이름이 5자를 초과합니다.")
 
-    car_positions = {car : 0 for car in cars}
+    car_positions = {car: 0 for car in cars}
 
     attempts = input("시도할 횟수는 몇 회인가요?\n")
     if not attempts.isdigit():
         raise ValueError("시도 횟수는 숫자로 입력하세요.")
     attempts = int(attempts)
+    if attempts <= 0:
+        raise ValueError("시도 횟수는 1 이상이어야 합니다.")
+    
 
     print("\n실행 결과")
     for _ in range(attempts):
         movement(cars, car_positions)
-        for car in cars :
+        for car in cars:
             print(car + " : " + '-' * car_positions[car])
         print()
 
     print_winner(cars, car_positions)
 
+FORWARD_THRESHOLD = 4
 def movement(cars, car_positions):
     """
     각 자동차가 0에서 9 사이의 랜덤 숫자를 생성하여, 
     4 이상의 숫자가 나오면 해당 자동차의 위치를 1 증가시키는 함수
     """
-    for car in cars :
-        if random.randint(0,9) >= 4 :
+    for car in cars:
+        if random.randint(0, 9) >= FORWARD_THRESHOLD:
             car_positions[car] += 1
+
 
 def get_winner(cars, car_positions):
     """
@@ -46,6 +57,8 @@ def get_winner(cars, car_positions):
     """
     max_value = max(car_positions.values())
     return [car for car in cars if car_positions[car] == max_value]
+
+
 
 def print_winner(cars, car_positions):
     """
@@ -55,4 +68,5 @@ def print_winner(cars, car_positions):
     print(f"최종 우승자 : {', '.join(winner)}")
 
 if __name__ == "__main__":
+    # 프로그램이 직접 실행될 때만 main() 함수를 호출
     main()
