@@ -1,42 +1,44 @@
 import random
 
+'''
+자동차 경주 프로그램
+'''
 
 def check_carname(x):
     '''
-    이름 검증 절차
+    자동차 이름을 검증하는 함수.
+    이름이 5자를 초과할 경우 예외를 발생시킨다.
     '''
     for i in x:
         if len(i) > 5:
             raise ValueError("자동차 이름은 5자를 초과할 수 없습니다.")
 
-
 def carfoward():
     """
-    자동차 전진시키는 함수
+    자동차를 전진시키는 함수.
+    0에서 9까지 랜덤값을 생성하여 4 이상이면 1을 반환, 그렇지 않으면 0을 반환한다.
     """
     a = random.randint(0, 9)
     if a >= 4:
         return 1
-    else:
-        return 0
-
+    return 0
 
 def status(cars):
     """
-    진행상태를 나타내는 함수
+    각 자동차의 진행 상태를 출력하는 함수.
+    각 자동차의 진행 상태를 '-'로 나타낸다.
     """
     for key, value in cars.items():
         print(f"{key} : {value * '-'}")
 
-
 def winner(cars):
     """
-    최종 우승자를 나타내는 함수
+    최종 우승자를 출력하는 함수.
+    가장 많은 전진을 한 자동차들을 우승자로 표시한다.
     """
     maxfoward = max(cars.values())
     winners = [key for key, value in cars.items() if value == maxfoward]
     print(f"\n최종 우승자 : {', '.join(winners)}")
-
 
 def main():
     car_name = input("경주할 자동차 이름을 입력하세요.(이름은 쉼표로 구분)").split(',')
