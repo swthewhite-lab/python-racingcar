@@ -13,7 +13,7 @@ def carfoward():
 
 def status(Cars):
     for key,value in Cars.items():
-        print(key,value*"-")
+        print(f"{key} : {value*'-'}")
 
 
 
@@ -21,7 +21,7 @@ def winner(Cars):
     maxfoward=max(Cars.values())
     winners=[key for key,value in Cars.items() if value==maxfoward]
     
-    print(",".join(winners))
+    print(f"\n최종 우승자 : {', '.join(winners)}")
 
 def main():
     car_name=input("경주할 자동차 이름을 입력하세요.(이름은 쉼표로 구분)").split(',')
@@ -41,7 +41,7 @@ def main():
         print("")
         count+=1
     
-    print(Cars)
+
     winner(Cars)
 
 
@@ -49,7 +49,7 @@ def main():
 
 
     
-    print("프로그램이 시작되었습니다.")
+    
 
 
 if __name__ == "__main__":
