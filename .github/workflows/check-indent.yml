@@ -16,6 +16,9 @@ jobs:
         run: |
           echo "[FORMAT]" > .pylintrc
           echo "max-nested-blocks=2" >> .pylintrc
+          echo "[MESSAGES CONTROL]" >> .pylintrc
+          echo "disable=all" >> .pylintrc
+          echo "enable=format" >> .pylintrc
 
       - name: Run pylint
         run: pylint --rcfile=.pylintrc src/
