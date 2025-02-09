@@ -7,19 +7,27 @@ def check_carname(x):
 def carfoward():
     a=random.randint(0,9)
     if a>=4 :
-        return "-"
+        return 1
     else :
-        return ""
+        return 0
 
 def status(Cars):
     for key,value in Cars.items():
-        print(key,value)
+        print(key,value*"-")
+
+
+
+def winner(Cars):
+    maxfoward=max(Cars.values())
+    winners=[key for key,value in Cars.items() if value==maxfoward]
+    
+    print(",".join(winners))
 
 def main():
     car_name=input("경주할 자동차 이름을 입력하세요.(이름은 쉼표로 구분)").split(',')
     check_carname(car_name)
     
-    Cars=dict.fromkeys(car_name,"")
+    Cars=dict.fromkeys(car_name,0)
     
     trycount=int(input("시도할 횟수는 몇 회인가요?"))
     if trycount ==0:
@@ -33,8 +41,8 @@ def main():
         print("")
         count+=1
     
-
-
+    print(Cars)
+    winner(Cars)
 
 
 
