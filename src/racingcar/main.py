@@ -1,13 +1,14 @@
 """ 자동차 경주 게임 """
 
 import random
+FORWARD_THRESHOLD = 4
 
 
 def main():
     """
     프로그램을 실행하고, 자동차 경주의 시뮬레이션을 수행하는 함수
-    사용자로부터 자동차 이름과 시도 횟수를 입력받고, 각 시도마다
-    경주를 진행하여 최종 우승자를 출력.
+    사용자로부터 자동차 이름과 시도 횟수를 입력받고,
+    각 시도마다 경주를 진행하여 최종 우승자를 출력.
     """
     print("프로그램이 시작되었습니다.")
 
@@ -29,7 +30,6 @@ def main():
     attempts = int(attempts)
     if attempts <= 0:
         raise ValueError("시도 횟수는 1 이상이어야 합니다.")
-    
 
     print("\n실행 결과")
     for _ in range(attempts):
@@ -37,10 +37,9 @@ def main():
         for car in cars:
             print(car + " : " + '-' * car_positions[car])
         print()
-
     print_winner(cars, car_positions)
 
-FORWARD_THRESHOLD = 4
+
 def movement(cars, car_positions):
     """
     각 자동차가 0에서 9 사이의 랜덤 숫자를 생성하여, 
@@ -66,6 +65,7 @@ def print_winner(cars, car_positions):
     """
     winner = get_winner(cars, car_positions)
     print(f"최종 우승자 : {', '.join(winner)}")
+
 
 if __name__ == "__main__":
     # 프로그램이 직접 실행될 때만 main() 함수를 호출
