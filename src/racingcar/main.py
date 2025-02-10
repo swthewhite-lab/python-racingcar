@@ -7,7 +7,7 @@ def is_number(Data):
     숫자가 아니면 ValueError를 발생시킴.
     """
     try:
-        str(Data)  # Data가 int 형식인지 확인
+        int(Data)  # Data가 int 형식인지 확인
     except ValueError as e:
         raise ValueError("숫자만 입력해주세요.") from e  # 숫자가 아닌 값 입력시 예외 처리
 
