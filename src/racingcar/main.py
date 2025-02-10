@@ -1,5 +1,6 @@
 import random
 
+
 def is_number (Data):
     """
     Data가 숫자인지 확인하는 함수.
@@ -10,6 +11,7 @@ def is_number (Data):
     except ValueError as e:
         raise ValueError("숫자만 입력해주세요.") from e  # 숫자가 아닌 값 입력시 예외 처리
 
+
 def validate_input(Data):
     for i in range(len(Data)):
         if len(Data[i]) > 5:
@@ -17,11 +19,13 @@ def validate_input(Data):
         Data[i] = [Data[i], 0]
     return Data
 
+
 def try_input():
     print("시도할 횟수는 몇 회인가요?")
     n = input()
     is_number(n)
     return int(n)
+
 
 def play_1set_of_game(Data):
     for i in range(len(Data)):
@@ -29,6 +33,7 @@ def play_1set_of_game(Data):
         if value >= 4:
             Data[i][1] += 1
     return Data
+
 
 def check_winner(Data):
     win_list, winner_count = list(), 0
@@ -61,6 +66,7 @@ def main():
     win_list = check_winner(name_list)
 
     print("최종 우승자 : {0}".format(', '.join(win_list)))
+
 
 if __name__ == "__main__":
     # 프로그램이 직접 실행될 때만 main() 함수를 호출
