@@ -20,3 +20,15 @@ def get_attempt_count():
 
 def move_car():
     return "-" if random.randint(0, 9) >= 4 else ""
+
+def run_race(cars, attempts):
+    results = {car: "" for car in cars}
+
+    print("\n실행 결과")
+    for _ in range(attempts):
+        for car in cars:
+            results[car] += move_car()
+        for car, progress in results.items():
+            print(f"{car} : {progress}")
+        print()
+    return results
