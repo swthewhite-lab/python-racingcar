@@ -1,7 +1,7 @@
 import random
 
 
-def is_number (Data):
+def is_number(Data):
     """
     Data가 숫자인지 확인하는 함수.
     숫자가 아니면 ValueError를 발생시킴.
