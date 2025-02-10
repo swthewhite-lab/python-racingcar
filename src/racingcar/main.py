@@ -59,12 +59,8 @@ def main():
         print()
 
     win_list = check_winner(name_list)
-       
+
     print("최종 우승자 : {0}".format(', '.join(win_list)))
-
-        
-
-
 
 if __name__ == "__main__":
     # 프로그램이 직접 실행될 때만 main() 함수를 호출
