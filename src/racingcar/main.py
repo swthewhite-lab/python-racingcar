@@ -32,3 +32,8 @@ def run_race(cars, attempts):
             print(f"{car} : {progress}")
         print()
     return results
+
+def get_winners(results):
+    max_distance = max(len(progress) for progress in results.values())
+    winners = [car for car, progress in results.items() if len(progress) == max_distance]
+    return winners
