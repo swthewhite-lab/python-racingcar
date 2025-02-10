@@ -15,11 +15,13 @@ def get_attempt_count():
         if count <= 0:
             raise ValueError
         return count
-    except ValueError:
-        raise ValueError("올바른 횟수를 입력하세요. (양의 정수)")
+    except ValueError as e:
+        raise ValueError("올바른 횟수를 입력하세요. (양의 정수)") from e
 
 def move_car():
-    return "-" if random.randint(0, 9) >= 4 else ""
+    if random.randint(0, 9) >= 4:
+        return "-"
+    return ""
 
 def run_race(cars, attempts):
     results = {car: "" for car in cars}
@@ -35,7 +37,10 @@ def run_race(cars, attempts):
 
 def get_winners(results):
     max_distance = max(len(progress) for progress in results.values())
-    winners = [car for car, progress in results.items() if len(progress) == max_distance]
+    winners = [
+        car for car, progress in results.items()
+        if len(progress) == max_distance
+        ]
     return winners
 
 def main():
