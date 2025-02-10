@@ -1,7 +1,6 @@
 import random
 
 
-
 def get_car_names():
     names = input("경주할 자동차 이름을 입력하세요.(이름은 쉼표로 구분)\n").split(",")
     names = [name.strip() for name in names]
