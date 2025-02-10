@@ -9,17 +9,32 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Get last commit message
+      - name: Get all new commit messages in PR
         run: |
-          commit_message=$(git log --format=%s -n 1)
-          echo "Last commit message: $commit_message"
-          echo "COMMIT_MESSAGE=$commit_message" >> $GITHUB_ENV
+          commit_messages=$(git log --format=%s origin/${{ github.base_ref }}..HEAD)
+          echo "Commit Messages in PR:"
+          echo "$commit_messages"
+          echo "COMMIT_MESSAGES<<EOF" >> $GITHUB_ENV
+          echo "$commit_messages" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
 
-      - name: Validate commit message
+      - name: Validate commit messages
         run: |
-          if [[ ! "$COMMIT_MESSAGE" =~ ^(feat|fix|docs|style|refactor|test|chore)(\(.+\))?!?:\ .+ ]]; then
-            echo "❌ Commit message does not follow the convention!"
+          invalid_commits=0
+          echo "🔍 Checking commit message convention..."
+          while IFS= read -r commit_message; do
+            if [[ ! "$commit_message" =~ ^(feat|fix|docs|style|refactor|test|chore)(\(.+\))?!?:\ .+ ]]; then
+              echo "❌ Invalid commit message: $commit_message"
+              invalid_commits=$((invalid_commits + 1))
+            else
+              echo "✅ Valid commit message: $commit_message"
+            fi
+          done <<< "$COMMIT_MESSAGES"
+
+          if [[ $invalid_commits -gt 0 ]]; then
+            echo "🚨 Some commit messages do not follow the convention!"
             echo "Example: 'feat: add login API'"
             exit 1
           fi
-          echo "✅ Commit message follows the convention!"
+
+          echo "🎉 All commit messages follow the convention!"
