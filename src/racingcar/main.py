@@ -37,3 +37,17 @@ def get_winners(results):
     max_distance = max(len(progress) for progress in results.values())
     winners = [car for car, progress in results.items() if len(progress) == max_distance]
     return winners
+
+def main():
+    try:
+        cars = get_car_names()
+        attempts = get_attempt_count()
+        results = run_race(cars, attempts)
+        winners = get_winners(results)
+        print(f"최종 우승자 : {', '.join(winners)}")
+    except ValueError as e:
+        print(f"입력 오류: {e}")
+        raise  
+
+if __name__ == "__main__":
+    main()
