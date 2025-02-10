@@ -24,7 +24,9 @@ def get_attempt_count():
 
 
 def move_car():
-    return "-" if random.randint(0, 9) >= 4 else ""
+    if random.randint(0, 9) >= 4:
+        return "-"
+    return ""
 
 
 def run_race(cars, attempts):
