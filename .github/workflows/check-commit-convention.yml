@@ -9,7 +9,7 @@ jobs:
       - name: Checkout code with full history
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # 전체 Git 히스토리를 가져옴 (PR 비교 가능)
+          fetch-depth: 0  # 전체 Git 히스토리를 가져옴
 
       - name: Get base branch
         run: echo "BASE_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
@@ -28,6 +28,13 @@ jobs:
           invalid_commits=0
           echo "🔍 Checking commit message convention..."
           while IFS= read -r commit_message; do
+            # "Merge"로 시작하는 메시지는 검사에서 제외
+            if [[ "$commit_message" =~ ^Merge ]]; then
+              echo "⚡ Skipping merge commit: $commit_message"
+              continue
+            fi
+
+            # Commit message validation
             if [[ ! "$commit_message" =~ ^(feat|fix|docs|style|refactor|test|chore)(\(.+\))?!?:\ .+ ]]; then
               echo "❌ Invalid commit message: $commit_message"
               invalid_commits=$((invalid_commits + 1))
