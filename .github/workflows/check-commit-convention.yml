@@ -6,12 +6,17 @@ jobs:
   check-commit-message:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout code with full history
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # 전체 Git 히스토리를 가져옴 (PR 비교 가능)
+
+      - name: Get base branch
+        run: echo "BASE_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
 
       - name: Get all new commit messages in PR
         run: |
-          commit_messages=$(git log --format=%s origin/${{ github.base_ref }}..HEAD)
+          commit_messages=$(git log --format=%s origin/$BASE_BRANCH..HEAD)
           echo "Commit Messages in PR:"
           echo "$commit_messages"
           echo "COMMIT_MESSAGES<<EOF" >> $GITHUB_ENV
