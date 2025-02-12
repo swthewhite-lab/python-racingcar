@@ -45,6 +45,15 @@ def check_winner(Data):
     return win_list
 
 
+def print_game_play_result(Data, n):
+    for i in range(n):
+        Data = play_1set_of_game(Data)
+        for i in range(len(Data)):
+            print("{0} : {1}".format(Data[i][0], "-" * Data[i][1]))
+        print()
+    return Data
+
+
 def main():
     """
     프로그램의 진입점 함수.
@@ -57,13 +66,7 @@ def main():
     print()
     print("실행 결과")
 
-    for i in range(n):
-        name_list = play_1set_of_game(name_list)
-        for i in range(len(name_list)):
-            print("{0} : {1}".format(name_list[i][0], "-" * name_list[i][1]))
-        print()
-
-    win_list = check_winner(name_list)
+    win_list = check_winner(print_game_play_result(name_list, n))
 
     print("최종 우승자 : {0}".format(', '.join(win_list)))
 
