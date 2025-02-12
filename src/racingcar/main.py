@@ -1,6 +1,10 @@
 import random
 
 
+THRESHOLD = 4  # 성공 기준 값
+MAX_RANDOM_VALUE = 10  # 랜덤 숫자의 최대값
+
+
 def is_number(data):
     """
     data가 숫자인지 확인하는 함수.
@@ -11,6 +15,7 @@ def is_number(data):
     except ValueError as e:
         raise ValueError("숫자만 입력해주세요.") from e  # 숫자가 아닌 값 입력시 예외 처리
 
+
 def validate_name(data):
     for i in range(len(data)):
         if len(data[i]) > 5:
@@ -20,6 +25,7 @@ def validate_name(data):
         elif data.count(data[i]) != 1:
             raise ValueError("중복되는 이름이 있습니다.")
         data[i] = [data[i], 0]
+
 
 def validate_input(data):
     if isinstance(data, str):
@@ -40,8 +46,8 @@ def try_input():
 
 def play_1set_of_game(data):
     for i in range(len(data)):
-        value = random.randint(0, 10)
-        if value >= 4:
+        value = random.randint(0, MAX_RANDOM_VALUE)
+        if value >= THRESHOLD:
             data[i][1] += 1
     return data
 
