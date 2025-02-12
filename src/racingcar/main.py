@@ -8,14 +8,33 @@ import random
 """
 
 
+def get_car_names():
+    names = input("경주할 자동차 이름을 입력하세요.(이름은 쉼표로 구분)").split(',')
+    check_carname(names)
+    return names
+
+
+def get_try_count():
+    count = int(input("시도할 횟수는 몇 회인가요?"))
+    if count == 0:
+        raise ValueError("시도 횟수는 0보다 커야 합니다.")
+    return count
+
+
 def check_carname(x):
     """
     자동차 이름을 검증하는 함수.
     이름이 5자를 초과할 경우 예외를 발생시킨다.
     """
+    if not x:
+        raise ValueError("자동차 이름은 비어있을 수 없습니다.")
     for i in x:
-        if len(i) > 5:
+        if not i.strip():
+            raise ValueError("자동차 이름은 공백일 수 없습니다.")
+        elif len(i) > 5:
             raise ValueError("자동차 이름은 5자를 초과할 수 없습니다.")
+    if len(x) != len(set(x)):
+        raise ValueError("자동차 이름은 중복될 수 없습니다.")
 
 
 def carfoward():
@@ -23,8 +42,8 @@ def carfoward():
     자동차를 전진시키는 함수.
     0에서 9까지 랜덤값을 생성하여 4 이상이면 1을 반환, 그렇지 않으면 0을 반환한다.
     """
-    a = random.randint(0, 9)
-    if a >= 4:
+    random_number = random.randint(0, 9)
+    if random_number >= 4:
         return 1
     return 0
 
@@ -53,24 +72,21 @@ def main():
     프로그램의 메인 함수.
     자동차 이름과 시도할 횟수를 입력받고, 경주를 진행한 후 우승자를 출력한다.
     """
-    car_name = input("경주할 자동차 이름을 입력하세요.(이름은 쉼표로 구분)").split(',')
-    check_carname(car_name)
-
-    cars = dict.fromkeys(car_name, 0)
-    trycount = int(input("시도할 횟수는 몇 회인가요?"))
-
-    if trycount == 0:
-        raise ValueError("시도할 횟수는 0일 수 없습니다.")
-
-    count = 0
-    while count < trycount:
-        for i in car_name:
-            cars[i] += carfoward()
-        status(cars)
-        print("")
-        count += 1
-
-    winner(cars)
+    try:
+        car_names = get_car_names()
+        cars = dict.fromkeys(car_names, 0)
+        try_count = get_try_count()
+        
+        for _ in range(try_count):
+            for name in car_names:
+                cars[name] += carfoward()
+            status(cars)
+            print()
+        
+        winner(cars)
+    except ValueError as e:
+        print(f"오류: {str(e)}")
+        raise
 
 
 if __name__ == "__main__":
