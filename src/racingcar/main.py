@@ -26,9 +26,9 @@ def validate_input(data):
 
 def try_input():
     print("시도할 횟수는 몇 회인가요?")
-    try_count = input()
-    is_number(try_count)
-    return int(try_count)
+    try_number = input()
+    is_number(try_number)
+    return int(try_number)
 
 
 def play_1set_of_game(data):
@@ -49,8 +49,8 @@ def check_winner(data):
     return win_list
 
 
-def print_game_play_result(data, try_count):
-    for i in range(try_count):
+def print_game_play_result(data, try_number):
+    for i in range(try_number):
         data = play_1set_of_game(data)
         for i in range(len(data)):
             print("{0} : {1}".format(data[i][0], "-" * data[i][1]))
@@ -66,11 +66,11 @@ def main():
     # 프로그램의 메인 로직을 여기에 구현
     print("경주할 자동차 이름을 입력하세요.(이름은 쉼표로 구분)")
     name_list = validate_input(list(map(str, input().replace(" ","").split(","))))
-    try_count = try_input()
+    try_number = try_input()
     print()
     print("실행 결과")
 
-    win_list = check_winner(print_game_play_result(name_list, try_count))
+    win_list = check_winner(print_game_play_result(name_list, try_number))
 
     print("최종 우승자 : {0}".format(', '.join(win_list)))
 
