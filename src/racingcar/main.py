@@ -16,6 +16,10 @@ def validate_input(data):
     for i in range(len(data)):
         if len(data[i]) > 5:
             raise ValueError("이름은 5자 이하만 가능합니다.")
+        elif len(data[i]) == 0:
+            raise ValueError("이름은 빈칸일 수 없습니다.")
+        elif data.count(data[i]) != 1:
+            raise ValueError("중복되는 이름이 있습니다.")
         data[i] = [data[i], 0]
     return data
 
@@ -61,7 +65,7 @@ def main():
     """
     # 프로그램의 메인 로직을 여기에 구현
     print("경주할 자동차 이름을 입력하세요.(이름은 쉼표로 구분)")
-    name_list = validate_input(list(map(str, input().split(","))))
+    name_list = validate_input(list(map(str, input().replace(" ","").split(","))))
     n = try_input()
     print()
     print("실행 결과")
