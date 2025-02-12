@@ -11,8 +11,7 @@ def is_number(data):
     except ValueError as e:
         raise ValueError("숫자만 입력해주세요.") from e  # 숫자가 아닌 값 입력시 예외 처리
 
-
-def validate_input(data):
+def validate_name(data):
     for i in range(len(data)):
         if len(data[i]) > 5:
             raise ValueError("이름은 5자 이하만 가능합니다.")
@@ -21,13 +20,21 @@ def validate_input(data):
         elif data.count(data[i]) != 1:
             raise ValueError("중복되는 이름이 있습니다.")
         data[i] = [data[i], 0]
+
+def validate_input(data):
+    if isinstance(data, str):
+        is_number(data)
+        if int(data) <= 0:
+            raise ValueError("시도할 횟수는 양의 정수이어야 합니다.")
+    elif isinstance(data, list):
+        validate_name(data)
     return data
 
 
 def try_input():
     print("시도할 횟수는 몇 회인가요?")
     try_number = input()
-    is_number(try_number)
+    validate_input(try_number)
     return int(try_number)
 
 
