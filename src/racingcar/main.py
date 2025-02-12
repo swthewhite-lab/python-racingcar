@@ -76,13 +76,11 @@ def main():
         car_names = get_car_names()
         cars = dict.fromkeys(car_names, 0)
         try_count = get_try_count()
-        
         for _ in range(try_count):
             for name in car_names:
                 cars[name] += carfoward()
             status(cars)
             print()
-        
         winner(cars)
     except ValueError as e:
         print(f"오류: {str(e)}")
