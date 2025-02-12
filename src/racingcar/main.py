@@ -78,7 +78,8 @@ def main():
     """
     # 프로그램의 메인 로직을 여기에 구현
     print("경주할 자동차 이름을 입력하세요.(이름은 쉼표로 구분)")
-    name_list = validate_input(list(map(str, input().replace(" ","").split(","))))
+    get_name = input().replace(" ", "").split(",")
+    name_list = validate_input(list(map(str, get_name)))
     try_number = try_input()
     print()
     print("실행 결과")
