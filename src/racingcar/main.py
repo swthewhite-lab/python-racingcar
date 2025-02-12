@@ -1,23 +1,23 @@
 import random
 
 
-def is_number(Data):
+def is_number(data):
     """
-    Data가 숫자인지 확인하는 함수.
+    data가 숫자인지 확인하는 함수.
     숫자가 아니면 ValueError를 발생시킴.
     """
     try:
-        int(Data)  # Data가 int 형식인지 확인
+        int(data)  # data가 int 형식인지 확인
     except ValueError as e:
         raise ValueError("숫자만 입력해주세요.") from e  # 숫자가 아닌 값 입력시 예외 처리
 
 
-def validate_input(Data):
-    for i in range(len(Data)):
-        if len(Data[i]) > 5:
+def validate_input(data):
+    for i in range(len(data)):
+        if len(data[i]) > 5:
             raise ValueError("이름은 5자 이하만 가능합니다.")
-        Data[i] = [Data[i], 0]
-    return Data
+        data[i] = [data[i], 0]
+    return data
 
 
 def try_input():
@@ -27,31 +27,31 @@ def try_input():
     return int(n)
 
 
-def play_1set_of_game(Data):
-    for i in range(len(Data)):
+def play_1set_of_game(data):
+    for i in range(len(data)):
         value = random.randint(0, 10)
         if value >= 4:
-            Data[i][1] += 1
-    return Data
+            data[i][1] += 1
+    return data
 
 
-def check_winner(Data):
+def check_winner(data):
     win_list, winner_count = list(), 0
-    for i in range(len(Data)):
-        if Data[i][1] > winner_count:
-            win_list, winner_count = [Data[i][0]], Data[i][1]
-        elif Data[i][1] == winner_count:
-            win_list.append(Data[i][0])
+    for i in range(len(data)):
+        if data[i][1] > winner_count:
+            win_list, winner_count = [data[i][0]], data[i][1]
+        elif data[i][1] == winner_count:
+            win_list.append(data[i][0])
     return win_list
 
 
-def print_game_play_result(Data, n):
+def print_game_play_result(data, n):
     for i in range(n):
-        Data = play_1set_of_game(Data)
-        for i in range(len(Data)):
-            print("{0} : {1}".format(Data[i][0], "-" * Data[i][1]))
+        data = play_1set_of_game(data)
+        for i in range(len(data)):
+            print("{0} : {1}".format(data[i][0], "-" * data[i][1]))
         print()
-    return Data
+    return data
 
 
 def main():
