@@ -11,7 +11,7 @@ def is_number(data):
     숫자가 아니면 ValueError를 발생시킴.
     """
     try:
-        int(data)  # data가 int 형식인지 확인
+        return int(data)  # data가 int 형식인지 확인
     except ValueError as e:
         raise ValueError("숫자만 입력해주세요.") from e  # 숫자가 아닌 값 입력시 예외 처리
 
@@ -28,9 +28,8 @@ def validate_name(data):
 
 
 def validate_input(data):
-    if isinstance(data, str):
-        is_number(data)
-        if int(data) <= 0:
+    if isinstance(data, int):
+        if data <= 0:
             raise ValueError("시도할 횟수는 양의 정수이어야 합니다.")
     elif isinstance(data, list):
         validate_name(data)
@@ -40,8 +39,9 @@ def validate_input(data):
 def try_input():
     print("시도할 횟수는 몇 회인가요?")
     try_number = input()
+    try_number = is_number(try_number)
     validate_input(try_number)
-    return int(try_number)
+    return try_number
 
 
 def play_1set_of_game(data):
