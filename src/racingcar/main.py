@@ -1,12 +1,72 @@
+import random
+
+# 자동차가 전진하는 기준값
+THRESHOLD = 4
+# 난수 생성 범위의 최대값
+RANDOM_MAX = 9
+
+
+def get_car_names():
+    names = input("경주할 자동차 이름을 입력하세요. (이름은 쉼표로 구분)\n").split(",")
+    names = [name.strip() for name in names]
+
+    if not names or any(len(name) > 5 or not name for name in names):
+        raise ValueError("자동차 이름은 1~5자의 문자여야 합니다.")
+
+    return names
+
+
+def get_attempt_count():
+    try:
+        count = int(input("시도할 횟수는 몇 회인가요?\n"))
+        if count <= 0:
+            raise ValueError("시도 횟수는 양의 정수여야 합니다.")
+        return count
+    except ValueError as error:
+        if str(error) == "시도 횟수는 양의 정수여야 합니다.":
+            raise
+        raise ValueError("올바른 횟수를 입력하세요. (양의 정수)") from error
+
+
+def move_car():
+    if random.randint(0, RANDOM_MAX) >= THRESHOLD:
+        return "-"
+    return ""
+
+
+def run_race(cars, attempts):
+    results = {car: "" for car in cars}
+
+    print("\n실행 결과")
+    for _ in range(attempts):
+        for car in cars:
+            results[car] += move_car()
+
+        for car, progress in results.items():
+            print(f"{car} : {progress}")
+        print()
+    return results
+
+
+def get_winners(results):
+    max_distance = max(len(progress) for progress in results.values())
+    return [
+        car for car, progress in results.items()
+        if len(progress) == max_distance
+        ]
+
+
 def main():
-    """
-    프로그램의 진입점 함수.
-    여기에서 전체 프로그램 로직을 시작합니다.
-    """
-    # 프로그램의 메인 로직을 여기에 구현
-    print("프로그램이 시작되었습니다.")
+    try:
+        cars = get_car_names()
+        attempts = get_attempt_count()
+        results = run_race(cars, attempts)
+        winners = get_winners(results)
+        print(f"최종 우승자 : {', '.join(winners)}")
+    except ValueError as error:
+        print(f"입력 오류: {error}")
+        raise
 
 
 if __name__ == "__main__":
-    # 프로그램이 직접 실행될 때만 main() 함수를 호출
     main()
