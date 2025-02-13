@@ -3,6 +3,7 @@ import random
 THRESHOLD = 4
 RANDOM_MAX = 9
 
+
 def get_car_names():
     names = input("경주할 자동차 이름을 입력하세요. (이름은 쉼표로 구분)\n").split(",")
     names = [name.strip() for name in names]
@@ -48,10 +49,13 @@ def main():
         attempts = get_attempt_count()
         results = run_race(cars, attempts)
         winners = get_winners(results)
+
         print(f"최종 우승자 : {', '.join(winners)}")
+        
     except ValueError as error:
         print(f"입력 오류: {error}")
         raise
+        
 
 if __name__ == "__main__":
     main()
