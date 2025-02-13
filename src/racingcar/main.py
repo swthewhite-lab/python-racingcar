@@ -20,9 +20,11 @@ def get_attempt_count():
     try:
         count = int(input("시도할 횟수는 몇 회인가요?\n"))
         if count <= 0:
-            raise ValueError("올바른 횟수를 입력하세요. (양의 정수)")
+            raise ValueError("시도 횟수는 양의 정수여야 합니다.")
         return count
     except ValueError as error:
+        if str(error) == "시도 횟수는 양의 정수여야 합니다.":
+            raise
         raise ValueError("올바른 횟수를 입력하세요. (양의 정수)") from error
 
 
@@ -55,19 +57,15 @@ def get_winners(results):
 
 
 def main():
-    while True:
-        try:
-            cars = get_car_names()
-            attempts = get_attempt_count()
-            results = run_race(cars, attempts)
-            winners = get_winners(results)
-            print(f"최종 우승자 : {', '.join(winners)}")
-            break
-        except ValueError as error:
-            print(f"입력 오류: {error}")
-            retry = input("다시 시도하시겠습니까? (y/n): ")
-            if retry.lower() != 'y':
-                break
+    try:
+        cars = get_car_names()
+        attempts = get_attempt_count()
+        results = run_race(cars, attempts)
+        winners = get_winners(results)
+        print(f"최종 우승자 : {', '.join(winners)}")
+    except ValueError as error:
+        print(f"입력 오류: {error}")
+        raise
 
 
 if __name__ == "__main__":
