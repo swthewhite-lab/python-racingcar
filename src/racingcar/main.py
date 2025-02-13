@@ -14,6 +14,7 @@ def get_car_names():
 
     return names
 
+
 def get_attempt_count():
     try:
         count = int(input("시도할 횟수는 몇 회인가요?\n"))
@@ -23,10 +24,12 @@ def get_attempt_count():
     except ValueError as error:
         raise ValueError("올바른 횟수를 입력하세요. (양의 정수)") from error
 
+
 def move_car():
     if random.randint(0, RANDOM_MAX) >= THRESHOLD:
         return "-"
     return ""
+
 
 def run_race(cars, attempts):
     results = {car: "" for car in cars}
@@ -41,12 +44,14 @@ def run_race(cars, attempts):
         print()
     return results
 
+
 def get_winners(results):
     max_distance = max(len(progress) for progress in results.values())
     return [
         car for car, progress in results.items()
         if len(progress) == max_distance
         ]
+
 
 def main():
     try:
@@ -56,11 +61,11 @@ def main():
         winners = get_winners(results)
 
         print(f"최종 우승자 : {', '.join(winners)}")
-        
+
     except ValueError as error:
         print(f"입력 오류: {error}")
         raise
-        
+
 
 if __name__ == "__main__":
     main()
