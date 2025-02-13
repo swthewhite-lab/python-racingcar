@@ -5,6 +5,7 @@ THRESHOLD = 4
 # 난수 생성 범위의 최대값
 RANDOM_MAX = 9
 
+
 def get_car_names():
     names = input("경주할 자동차 이름을 입력하세요. (이름은 쉼표로 구분)\n").split(",")
     names = [name.strip() for name in names]
@@ -54,17 +55,19 @@ def get_winners(results):
 
 
 def main():
-    try:
-        cars = get_car_names()
-        attempts = get_attempt_count()
-        results = run_race(cars, attempts)
-        winners = get_winners(results)
-
-        print(f"최종 우승자 : {', '.join(winners)}")
-
-    except ValueError as error:
-        print(f"입력 오류: {error}")
-        raise
+    while True:
+        try:
+            cars = get_car_names()
+            attempts = get_attempt_count()
+            results = run_race(cars, attempts)
+            winners = get_winners(results)
+            print(f"최종 우승자 : {', '.join(winners)}")
+            break
+        except ValueError as error:
+            print(f"입력 오류: {error}")
+            retry = input("다시 시도하시겠습니까? (y/n): ")
+            if retry.lower() != 'y':
+                break
 
 
 if __name__ == "__main__":
