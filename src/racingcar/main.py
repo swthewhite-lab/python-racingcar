@@ -1,7 +1,8 @@
 import random
 
-THRESHOLD = 4  # 자동차가 이동할 확률을 결정하는 기준값
+THRESHOLD = 4  
 RANDOM_MAX = 9
+
 
 def get_car_names():
     names = input(
