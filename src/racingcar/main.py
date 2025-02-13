@@ -33,13 +33,16 @@ def validate_input(data):
             raise ValueError("시도할 횟수는 양의 정수이어야 합니다.")
     elif isinstance(data, list):
         validate_name(data)
-    return data
+
+
+def name_input():
+    name_list = list(map(str, input().replace(" ", "").split(",")))
+    validate_input(name_list)
+    return name_list
 
 
 def try_input():
-    print("시도할 횟수는 몇 회인가요?")
-    try_number = input()
-    try_number = is_number(try_number)
+    try_number = is_number(input())
     validate_input(try_number)
     return try_number
 
@@ -49,6 +52,15 @@ def play_1set_of_game(data):
         value = random.randint(0, MAX_RANDOM_VALUE)
         if value >= THRESHOLD:
             data[i][1] += 1
+    return data
+
+
+def print_game_play_result(data, try_number):
+    for i in range(try_number):
+        data = play_1set_of_game(data)
+        for i in range(len(data)):
+            print("{0} : {1}".format(data[i][0], "-" * data[i][1]))
+        print()
     return data
 
 
@@ -62,15 +74,6 @@ def check_winner(data):
     return win_list
 
 
-def print_game_play_result(data, try_number):
-    for i in range(try_number):
-        data = play_1set_of_game(data)
-        for i in range(len(data)):
-            print("{0} : {1}".format(data[i][0], "-" * data[i][1]))
-        print()
-    return data
-
-
 def main():
     """
     프로그램의 진입점 함수.
@@ -78,14 +81,15 @@ def main():
     """
     # 프로그램의 메인 로직을 여기에 구현
     print("경주할 자동차 이름을 입력하세요.(이름은 쉼표로 구분)")
-    get_name = input().replace(" ", "").split(",")
-    name_list = validate_input(list(map(str, get_name)))
+    name_list = name_input()
+
+    print("시도할 횟수는 몇 회인가요?")
     try_number = try_input()
-    print()
-    print("실행 결과")
 
-    win_list = check_winner(print_game_play_result(name_list, try_number))
+    print("\n실행 결과")
+    play_list = print_game_play_result(name_list, try_number)
 
+    win_list = check_winner(play_list)
     print("최종 우승자 : {0}".format(', '.join(win_list)))
 
 
