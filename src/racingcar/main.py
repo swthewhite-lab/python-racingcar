@@ -5,7 +5,6 @@ THRESHOLD = 4
 # 난수 생성 범위의 최대값
 RANDOM_MAX = 9
 
-
 def get_car_names():
     names = input("경주할 자동차 이름을 입력하세요. (이름은 쉼표로 구분)\n").split(",")
     names = [name.strip() for name in names]
@@ -40,13 +39,12 @@ def run_race(cars, attempts):
         for car, progress in results.items():
             print(f"{car} : {progress}")
         print()
-    
     return results
 
 def get_winners(results):
     max_distance = max(len(progress) for progress in results.values())
     return [
-        car for car, progress in results.items() 
+        car for car, progress in results.items()
         if len(progress) == max_distance
         ]
 
