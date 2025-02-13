@@ -1,5 +1,7 @@
 import random
 
+THRESHOLD = 4  # 자동차가 이동할 확률을 결정하는 기준값
+RANDOM_MAX = 9
 
 def get_car_names():
     names = input(
@@ -24,7 +26,7 @@ def get_attempt_count():
 
 
 def move_car():
-    if random.randint(0, 9) >= 4:
+    if random.randint(0, RANDOM_MAX) >= THRESHOLD:
         return "-"
     return ""
 
