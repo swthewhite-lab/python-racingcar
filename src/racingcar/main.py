@@ -1,6 +1,8 @@
 import random
 
+# 자동차가 전진하는 기준값
 THRESHOLD = 4
+# 난수 생성 범위의 최대값
 RANDOM_MAX = 9
 
 
@@ -23,7 +25,9 @@ def get_attempt_count():
         raise ValueError("올바른 횟수를 입력하세요. (양의 정수)") from error
 
 def move_car():
-    return "-" if random.randint(0, RANDOM_MAX) >= THRESHOLD else ""
+    if random.randint(0, RANDOM_MAX) >= THRESHOLD:
+        return "-"
+    return ""
 
 def run_race(cars, attempts):
     results = {car: "" for car in cars}
@@ -41,7 +45,10 @@ def run_race(cars, attempts):
 
 def get_winners(results):
     max_distance = max(len(progress) for progress in results.values())
-    return [car for car, progress in results.items() if len(progress) == max_distance]
+    return [
+        car for car, progress in results.items() 
+        if len(progress) == max_distance
+        ]
 
 def main():
     try:
